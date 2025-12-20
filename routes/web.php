@@ -1,17 +1,27 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\EventController;
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Event routes
+Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+// Category routes (admin)
+Route::prefix('admin')->name('categories.')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/categories', [DashboardController::class, 'index'])->name('index');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('store');
+    Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('update');
+    Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('destroy');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -20,7 +30,3 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-Route::get('/', [HomeController::class, 'index'])->name('home');
-// Event routes
-Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
