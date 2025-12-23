@@ -1,5 +1,5 @@
 # 🎫 BengTix  
-**Sistem Ticketing Konser Berbasis Web (Non-Payment)**
+**Sistem Ticketing Konser Berbasis Web (Non-Payment) By Kyuusha**
 
 ## 📌 Overview
 **BengTix** adalah aplikasi simulasi sistem pemesanan tiket konser berbasis web yang dibangun menggunakan **Laravel 12** dengan **Laravel Breeze** untuk autentikasi.  
@@ -91,7 +91,7 @@ Relasi database:
 
 1. Clone repository
    ```bash
-   git clone https://github.com/username/bengtix.git
+   git clone https://github.com/ItsKyuusha/BengTix-BK-Project.git
 2. Masuk ke folder project
    ```bash
    cd bengtix
